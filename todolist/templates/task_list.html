@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block styles %}
+<style>
+    .card-header {
+        text-align: center;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+{% block title %} Tasks {% endblock %}
+{% block content %}
+<main>
+
+    <div class="sidebar">
+        <ul class="nav nav-pills flex-column mb-auto">
+            <div class="container-fluid mt-1 mb-1">
+                <a href="/" class="text-decoration-none mb-0">
+                    <span class="fs-4">Menu</span>
+                </a>
+            </div>
+            <hr class="mt-0 mb-0">
+            <li class="nav-item">
+                <a href="{% url 'index' %}" class="nav-link">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'tasks' %}" class="nav-link active">Task List</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content dashboard">
+        <h1>TASKS LIST</h1>
+        <div class="controls">
+            <button id="btnNew" class="btn btn-primary" data-toggle="modal" data-target="#newTaskModal">New</button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-lg" id="taskTable" url-save-task="{% url 'save_task' %}">
+                <thead>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Author</th>
+                    <th>Created</th>
+                    <th>Modified</th>
+                </thead>
+                <tbody>
+                    {% for task in tasks %}
+                    <tr>
+                        <td>{{task.id}}</td>
+                        <td>{{task.title}}</td>
+                        <td>{{task.description}}</td>
+                        <td>{{task.category}}</td>
+                        <td>{{task.status}}</td>
+                        <td>{{task.user_id}}</td>
+                        <td>{{task.created_on}}</td>
+                        <td>{{task.updated_on}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</main>
+
+<div class="modal fade" role="dialog" id="newTaskModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">New Task</h5>
+            </div>
+            <div class="modal-body">
+                <form action="" id="taskForm">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="">Title</label>
+                        <input class="form-control" type="text" name="title" id="title" placeholder="Type a title..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Description</label>
+                        <textarea class="form-control" name="description" id="description" cols="30" rows="7" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Category</label>
+                        <select class="form-control" name="category" id="category" required>
+                            <option value="" selected="true" disabled>Select a category...</option>
+                            {% for k,v in categories.items %}
+                            <option value="{{k}}">{{v}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <hr>
+                    <div class="actions">
+                        <button id="btnSave" class="btn btn-primary">Save</button>
+                        <button id="btnCancel" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/tasklist.js' %}"></script>
+{% endblock %}
