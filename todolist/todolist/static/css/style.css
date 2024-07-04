@@ -74,3 +74,23 @@ li .nav-link:hover {
     color: white !important;
     font-weight: bold;
 }
+
+.task-status {
+    font-weight: bold !important;
+}
+
+.bg-Pending {
+    background-color: orange !important;
+}
+.bg-In-Progress {
+    background-color: yellow !important;
+}
+.bg-Completed {
+    background-color: rgb(41, 170, 41) !important;
+}
+.bg-Cancelled {
+    background-color: red !important;
+}
+.bg-Postponed {
+    background-color: rgb(51, 190, 237) !important;
+}

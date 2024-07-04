@@ -30,7 +30,7 @@ class Task(models.Model):
     status = models.CharField(choices=TASK_STATUSES, default="P")
     user_id = models.IntegerField(default=1, blank=True, null=True)
     created_on = models.DateTimeField(datetime.now(), blank=True, null=True)
-    updated_on = models.DateTimeField(blank=True, null=True)
+    updated_on = models.DateTimeField(blank=True, null=True, auto_now_add=True)
 
     def __str__(self):
         return self.title

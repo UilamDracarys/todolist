@@ -36,30 +36,8 @@
         </div>
         <div class="table-responsive">
             <table class="table table-hover table-striped table-lg" id="taskTable" url-save-task="{% url 'save_task' %}">
-                <thead>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Status</th>
-                    <th>Author</th>
-                    <th>Created</th>
-                    <th>Modified</th>
-                </thead>
-                <tbody>
-                    {% for task in tasks %}
-                    <tr>
-                        <td>{{task.id}}</td>
-                        <td>{{task.title}}</td>
-                        <td>{{task.description}}</td>
-                        <td>{{task.category}}</td>
-                        <td>{{task.status}}</td>
-                        <td>{{task.user_id}}</td>
-                        <td>{{task.created_on}}</td>
-                        <td>{{task.updated_on}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
+                {% include 'task_table.html' %}
+
             </table>
         </div>
 
@@ -67,15 +45,17 @@
 
 </main>
 
-<div class="modal fade" role="dialog" id="newTaskModal">
+<div class="modal fade" role="dialog" id="taskModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">New Task</h5>
+                <h5 class="modal-title"><span id="action"></span> Task</h5>
             </div>
             <div class="modal-body">
                 <form action="" id="taskForm">
                     {% csrf_token %}
+                    <input type="hidden" name="action">
+                    <input type="hidden" name="taskId">
                     <div class="form-group">
                         <label for="">Title</label>
                         <input class="form-control" type="text" name="title" id="title" placeholder="Type a title..." required>
@@ -97,6 +77,39 @@
                     <div class="actions">
                         <button id="btnSave" class="btn btn-primary">Save</button>
                         <button id="btnCancel" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" role="dialog" id="deleteModal">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Task</h5>
+            </div>
+            <div class="modal-body">
+                <form action="" id="deleteForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="taskId">
+                    <p>Please confirm to delete this task.</p>
+
+                    <ul>
+                        <li>
+                            ID: <span id="taskId"></span>
+                        </li>
+                        <li>
+                            Title: <span id="taskTitle"></span>
+                        </li>
+                    </ul>
+
+                    <hr>
+                    <div class="actions">
+                        <button id="btnDeleteTask" class="btn btn-danger">Delete</button>
+                        <button id="btnCancelDelete" class="btn btn-secondary">Cancel</button>
                     </div>
                 </form>
             </div>

@@ -1,0 +1,28 @@
+
+    <thead>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Created</th>
+        <th>Modified</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <td>{{task.id}}</td>
+            <td>{{task.title}}</td>
+            <td>{{task.description}}</td>
+            <td>{{task.get_category_display}}</td>
+            <td>{{task.get_status_display}}</td>
+            <td>{{task.created_on}}</td>
+            <td>{{task.updated_on}}</td>
+            <td>
+                <button class="btn btn-warning" id="btnEdit">Edit</button>
+                <button class="btn btn-danger" id="btnDelete">Delete</button>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>

@@ -30,23 +30,21 @@
 
     <div class="main-content dashboard">
         <h1>DASHBOARD</h1>
-
-
         <div class="row">
+            {% for k,v in summary.items %}
             <div class="col-md-3 mb-3">
-                <div class="card">
-                    <div class="card-header bg-warning">Pending</div>
+                <div class="card h-100 shadow ">
+                    <div class="card-header task-status bg-{{k}}">{{k}}</div>
                     <div class="card-body">
-                        {% for item in summary %}
-                        {% if item.status == 'P' %}
-                        <h1 class="text-center">{{item.id__count}}</h1>
-                        {% endif %}
-                        {% endfor %}
+                        <h1 class="text-center">{{v}}</h1>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
-                <div class="card">
+            {% endfor %}
+
+
+            <!-- <div class="col-md-3 mb-3">
+                <div class="card h-100 shadow">
                     <div class="card-header bg-primary">In-Progress</div>
                     <div class="card-body">
                         {% for item in summary %}
@@ -58,7 +56,7 @@
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="card">
+                <div class="card h-100 shadow">
                     <div class="card-header bg-success">Completed</div>
                     <div class="card-body">
                         {% for item in summary %}
@@ -70,16 +68,19 @@
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="card">
+                <div class="card h-100 shadow">
                     <div class="card-header bg-danger">Cancelled</div>
                     <div class="card-body">
-                        
-                        <h1></h1>
+                        {% for item in summary %}
+                        {% if item.status == 'CC' %}
+                        <h1>{{item.id__count}}</h1>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
             <div class="col-md-3 mb-3">
-                <div class="card">
+                <div class="card h-100 shadow">
                     <div class="card-header bg-secondary">Postponed</div>
                     <div class="card-body">
                         {% for item in summary %}
@@ -89,7 +90,7 @@
                         {% endfor %}
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         
     </div>
